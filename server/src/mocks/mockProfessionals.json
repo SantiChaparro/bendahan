@@ -1,0 +1,64 @@
+{
+    "professionals": [
+        {
+            "dni": 12345678,
+            "name": "Carlos Sánchez",
+            "phone": "1234567890",
+            "mail": "carlos.sanchez@example.com"
+        },
+        {
+            "dni": 23456789,
+            "name": "María Rodríguez",
+            "phone": "9876543210",
+            "mail": "maria.rodriguez@example.com"
+        },
+        {
+            "dni": 34567890,
+            "name": "Juan Martínez",
+            "phone": "5558889999",
+            "mail": "juan.martinez@example.com"
+        },
+        {
+            "dni": 45678901,
+            "name": "Laura Gómez",
+            "phone": "7773331111",
+            "mail": "laura.gomez@example.com"
+        },
+        {
+            "dni": 56789012,
+            "name": "Pedro López",
+            "phone": "9990001111",
+            "mail": "pedro.lopez@example.com"
+        },
+        {
+            "dni": 67890123,
+            "name": "Ana Díaz",
+            "phone": "4443332222",
+            "mail": "ana.diaz@example.com"
+        },
+        {
+            "dni": 78901234,
+            "name": "Luis Pérez",
+            "phone": "1112223333",
+            "mail": "luis.perez@example.com"
+        },
+        {
+            "dni": 89012345,
+            "name": "Lucía Castro",
+            "phone": "6667778888",
+            "mail": "lucia.castro@example.com"
+        },
+        {
+            "dni": 98765432,
+            "name": "Marta Ruiz",
+            "phone": "2224446666",
+            "mail": "marta.ruiz@example.com"
+        },
+        {
+            "dni": 87654321,
+            "name": "Javier González",
+            "phone": "8889990000",
+            "mail": "javier.gonzalez@example.com"
+        }
+    ]
+}
