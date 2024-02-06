@@ -3,7 +3,7 @@ const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
 
-    sequelize.define('Professionals',{
+    sequelize.define('Professional',{
 
         dni:{
             type: DataTypes.INTEGER,
