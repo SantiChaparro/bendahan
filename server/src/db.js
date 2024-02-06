@@ -28,9 +28,22 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const {Appointment,Client,Payment,Professionals,Services } = sequelize.models;
+const {Appointment,Client,Payment,Professional,Service } = sequelize.models;
 
-//const RoutineExercise = sequelize.models.RoutineExercise || sequelize.define('RoutineExercise', {});
+Professional.belongsToMany(Service,{through:'professionalService'});
+Service.belongsToMany(Professional,{through:'professionalService'});
+
+Appointment.belongsTo(Professional);
+Professional.hasMany(Appointment);
+
+Appointment.belongsTo(Service);
+Service.hasMany(Appointment);
+
+Appointment.belongsTo(Client);
+Client.hasMany(Appointment);
+
+Appointment.belongsTo(Payment);
+Payment.hasMany(Appointment);
 
 
 

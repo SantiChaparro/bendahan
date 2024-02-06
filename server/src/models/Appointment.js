@@ -11,11 +11,11 @@ module.exports = (sequelize) => {
             autoIncrement: true,
             
         },
-        appointment_date:{
+        date:{
             type: DataTypes.DATEONLY,
             allowNull: false,
         },
-        appointment_time:{
+        time:{
             type: DataTypes.TIME,
             allowNull: false,
         }

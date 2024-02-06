@@ -3,7 +3,7 @@ const {DataTypes} = require("sequelize");
 
 module.exports = (sequelize) => {
 
-    sequelize.define('Services',{
+    sequelize.define('Payment',{
 
         id:{
             type: DataTypes.INTEGER,
@@ -22,6 +22,11 @@ module.exports = (sequelize) => {
         payment_mode:{
             type: DataTypes.ENUM('Efectivo','Transferencia','Débito','Crédito'),
             allowNull: false
+        },
+        state:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: 'Pendiente' 
         }
         
     })
