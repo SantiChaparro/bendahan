@@ -33,4 +33,16 @@ const newClient = async (dni,name,DateOfBirth,phone,mail) => {
         }
 };
 
-module.exports = {getAllClients,newClient};
+const getAllServices = async () => {
+
+    const services = await Service.findAll();
+
+    if(services){
+        return services;
+    }else{
+        throw new Error('Problema al cargar los servicios');
+    }
+
+};
+
+module.exports = {getAllClients,newClient,getAllServices};

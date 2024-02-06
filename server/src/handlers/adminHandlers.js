@@ -1,4 +1,4 @@
-const {getAllClients,newClient} = require('../controllers/adminControllers');
+const {getAllClients,newClient,getAllServices} = require('../controllers/adminControllers');
 
 const getClients =async (req,res) => {
 
@@ -26,7 +26,7 @@ const postClient = async (req,res) => {
     try {
         
         const client = await newClient(dni,name,DateOfBirth,phone,mail);
-        
+
         if(client){
             res.status(200).json(client);
         }
@@ -37,4 +37,19 @@ const postClient = async (req,res) => {
 
 };
 
-module.exports = {getClients,postClient};
+const getServices = async (req,res) => {
+
+    try {
+        const services = await getAllServices();
+
+        if(services){
+            res.status(200).json(services);
+        }
+
+    } catch (error) {
+        res.status(500).send({error:error.message});
+    }
+
+};
+
+module.exports = {getClients,postClient,getServices};
