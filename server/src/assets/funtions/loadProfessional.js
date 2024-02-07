@@ -1,6 +1,6 @@
 const mockProfessional = require('../mocks/mockProfessionals.json');
 
-const { Professional } = require('../db');
+const { Professional } = require('../../db');
 
 const professionalLoader = async () => {
 

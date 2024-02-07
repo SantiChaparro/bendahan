@@ -1,5 +1,19 @@
-const {} = require('../controllers/professionalControllers');
+const {getAllProfessionals} = require('../controllers/professionalControllers');
 
-//handlers para professional
+const getProfecionals = async (req,res) => {
 
-module.exports= {}
+    try {
+        
+        const professional = await getAllProfessionals();
+
+        if(professional){
+            res.status(200).json(professional);
+        }
+
+    } catch (error) {
+        res.status(500).send({error:error.message});
+    }
+
+};
+
+module.exports= {getProfecionals}

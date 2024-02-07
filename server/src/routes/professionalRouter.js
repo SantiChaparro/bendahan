@@ -1,9 +1,9 @@
 const {Router} = require('express');
-const { } = require('../handlers/professionalHandler'); 
+const { getProfecionals } = require('../handlers/professionalHandler'); 
 const professionalRouter = Router();
 
 
-// professionalRouter.get('/', handler);
+ professionalRouter.get('/', getProfecionals);
 
 
 

@@ -1,6 +1,6 @@
 const mockService = require('../mocks/mockservices.json');
 
-const { Service } = require('../db');
+const { Service } = require('../../db');
 
 const serviceLoader = async () => {
 
