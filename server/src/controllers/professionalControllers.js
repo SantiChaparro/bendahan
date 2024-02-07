@@ -19,7 +19,8 @@ const postNewProfessional = async (dni,name,phone,mail) => {
         throw new Error('Profesional ya registrado')
     }else{
         const newProfessional = await Professional.create({dni,name,phone,mail});
-        return newProfessional;
+        const successMessage = `Profesional creado con éxito`;
+        return {successMessage,newProfessional};
     }
 
    
