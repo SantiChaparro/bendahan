@@ -8,7 +8,6 @@ const serviceLoader = async () => {
 
         return {
 
-            id: service.id ,
             service_name: service.service_name,
             cost: service.cost ,
             commission_percentage: service.commission_percentage
