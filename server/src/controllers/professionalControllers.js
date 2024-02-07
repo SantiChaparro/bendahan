@@ -1,5 +1,14 @@
 const {Professional}= require ('../db')
 
-//controllers de professional
+const getAllProfessionals = async () => {
 
-module.exports={}
+    const allProfessionals = await Professional.findAll();
+
+    if(allProfessionals){
+
+        return allProfessionals;
+    }
+
+};
+
+module.exports={getAllProfessionals}

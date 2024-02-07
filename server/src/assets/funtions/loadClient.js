@@ -1,7 +1,7 @@
 const mockClient = require('../mocks/mockClients.json');
 
 
-const { Client } = require('../db');
+const { Client } = require('../../db');
 
 
 const clientLoader = async () => {
