@@ -1,5 +1,5 @@
 const {Router} = require('express');
-//const {clientRouter, serviceRouter, appointmentRouter,paymentRouter,professionalRouter}= require ('../routes')
+
 const clientRouter = require ('../routes/clientRouter');
 const serviceRouter = require ('../routes/serviceRouter');
 const appointmentRouter = require ('../routes/appointmentRouter');
