@@ -1,4 +1,4 @@
-const {getAllClients,newClient} = require('../controllers/clientControllers');
+const {getAllClients,newClient, foundClient, updatedClient} = require('../controllers/clientControllers');
 
 const getClients =async (req,res) => {
 
@@ -37,4 +37,45 @@ const postClient = async (req,res) => {
 
 };
 
-module.exports= {getClients, postClient}
+const getClientById = async (req,res) => {
+
+    const {dni} = req.params;
+
+    console.log(dni)
+
+    try {
+        
+        const client = await foundClient(dni);
+
+        if(client){
+            res.status(200).json(client);
+        }
+
+    } catch (error) {
+        res.status(500).send({error:error.message});
+    }
+
+};
+
+const updateClient = async (req,res) => {
+
+    const {dni} = req.params;
+    const clientData = req.body;
+
+    console.log(clientData)
+
+    try {
+        
+        const client = await updatedClient(clientData,dni) 
+
+        if (client){
+            res.status(200).json(client);
+        }
+
+    } catch (error) {
+        res.status(500).send({error:error.message});
+    }
+
+};
+
+module.exports= {getClients, postClient, updateClient, getClientById}

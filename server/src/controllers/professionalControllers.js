@@ -1,5 +1,31 @@
 const {Professional}= require ('../db')
 
-//controllers de professional
+const getAllProfessionals = async () => {
 
-module.exports={}
+    const allProfessionals = await Professional.findAll();
+
+    if(allProfessionals){
+
+        return allProfessionals;
+    }
+
+};
+
+const postNewProfessional = async (dni,name,phone,mail) => {
+
+    const existingProfessional = await Professional.findByPk(dni);
+    
+    if(existingProfessional){
+        throw new Error('Profesional ya registrado')
+    }else{
+        const newProfessional = await Professional.create({dni,name,phone,mail});
+        const successMessage = `Profesional creado con éxito`;
+        return {successMessage,newProfessional};
+    }
+
+   
+
+
+};
+
+module.exports={getAllProfessionals,postNewProfessional}
