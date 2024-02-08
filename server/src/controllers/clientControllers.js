@@ -34,5 +34,36 @@ const newClient = async (dni,name,DateOfBirth,phone,mail) => {
     }
 };
 
+const foundClient = async (dni) => {
 
-module.exports={getAllClients, newClient}
+    const client = await Client.findByPk(dni);
+
+    if(client){
+        return client;
+    }
+
+};
+
+
+const updatedClient = async (clientData,dni) => {
+
+    const existingClient = await Client.findByPk(dni);
+
+    if(existingClient){
+
+        const newClient =await existingClient.update(clientData,{
+            where:{
+                dni: dni
+            }
+        });
+
+        const successMessage = `Cliente modificado con éxito`;
+
+        return {successMessage,newClient};
+
+    }
+
+};
+
+
+module.exports={getAllClients, newClient, updatedClient, foundClient}
