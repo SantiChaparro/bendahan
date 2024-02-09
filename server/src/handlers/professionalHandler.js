@@ -1,4 +1,4 @@
-const {getAllProfessionals,postNewProfessional,getProfessionalById} = require('../controllers/professionalControllers');
+const {getAllProfessionals,postNewProfessional,getProfessionalById,updatedProfessional} = require('../controllers/professionalControllers');
 
 const getProfecionals = async (req,res) => {
 
@@ -53,4 +53,21 @@ const getProfessional = async (req,res) => {
 
 };
 
-module.exports= {getProfecionals,postProfecionals,getProfessional}
+const updateProfessional = async (req,res) => {
+    const {dni} = req.params;
+    const updateData = req.body;
+
+    try {
+        
+        const professional = await updatedProfessional(dni,updateData);
+        
+        if(professional){
+            res.status(200).json(professional);
+        }
+
+    } catch (error) {
+        res.status(500).send({error:error.message});
+    }
+};
+
+module.exports= {getProfecionals,postProfecionals,getProfessional,updateProfessional}
