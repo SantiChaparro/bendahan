@@ -1,5 +1,58 @@
 const {Appointment}= require ('../db')
+const {Client} = require('../db');
+const {Professional} = require('../db');
+const {Service} = require('../db');
 
-//controllers de appointments
+const postNewAppointment = async (date,time,dni,professionalDni,serviceId) => {
 
-module.exports={}
+    const existingClient = await Client.findByPk(dni);
+
+    if(existingClient){
+        const newAppointment = await Appointment.create({date,time});
+
+        if(newAppointment){
+
+            await newAppointment.setClient(dni);
+
+            const professional = await Professional.findByPk(professionalDni)
+
+            await newAppointment.setProfessional(professional);
+
+            const service = await Service.findByPk(serviceId);
+
+            await newAppointment.setService(service);
+
+            const successMessage = `Turno asignado con éxito`;
+            return {successMessage,newAppointment};
+
+        };
+
+    }else{
+        throw new Error('Cliente no figura en base de datos');
+    }
+
+};
+
+const getAllAppointments = async () => {
+
+    const appointments = await Appointment.findAll({
+        include:[
+            {
+                model:Professional,
+                attributes:['name']
+            },
+            {
+                model: Service,
+                attributes:['service_name','cost']
+            }
+        ]
+    });
+
+    if(appointments){
+        return appointments;
+    }
+
+};
+
+
+module.exports={postNewAppointment,getAllAppointments}
