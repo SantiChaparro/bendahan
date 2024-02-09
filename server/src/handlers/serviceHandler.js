@@ -1,4 +1,4 @@
-const {getAllServices, postNewService} = require('../controllers/serviceControllers');
+const {getAllServices, postNewService, updatedService, getService} = require('../controllers/serviceControllers');
 
 const getServices = async (req,res) => {
 
@@ -33,4 +33,41 @@ const postService = async (req,res) => {
 
 };
 
-module.exports= {getServices, postService}
+const getServiceById = async (req,res) => {
+
+    const {id} = req.params;
+
+    try {
+        
+        const service = await getService(id);
+
+        if(service){
+            res.status(200).json(service);
+        }
+
+    } catch (error) {
+        res.status(500).send({error:error.message});
+    }
+
+};
+
+const updateService = async (req,res) => {
+
+    const serviceData = req.body;
+    const {id} = req.params;
+
+    try {
+        
+        const service = await updatedService(id,serviceData)
+
+        if(service){
+            res.status(200).json(service);
+        }
+
+    } catch (error) {
+        res.status(500).send({error:error.message});
+    }
+
+};
+
+module.exports= {getServices, postService, updateService, getServiceById}
