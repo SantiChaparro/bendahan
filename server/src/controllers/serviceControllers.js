@@ -24,4 +24,33 @@ const postNewService = async (service_name,cost,commission_percentage) => {
     }
 };
 
-module.exports = {getAllServices,postNewService};
+const getService = async (id) => {
+
+    const service = await Service.findByPk(id);
+
+    if(service){
+        return service;
+    }
+
+};
+
+const updatedService = async (id,serviceData) => {
+
+    const existingService = await Service.findByPk(id);
+
+    if(existingService){
+        
+        const updatedServices = await existingService.update(serviceData,{
+            where:{
+                id:id
+            }
+        });
+
+        const succesMessage = `Servicio modificado con éxito`;
+
+        return {succesMessage,updatedServices};
+    }
+
+};
+
+module.exports = {getAllServices,postNewService,updatedService,getService};
