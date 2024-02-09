@@ -1,9 +1,10 @@
 const {Router} = require('express');
-const {} = require('../handlers/appointmentHandler');
+const {postAppointment,getAppointments} = require('../handlers/appointmentHandler');
 const appointmentRouter = Router();
 
 
-// appointmentRouter.get('/',handler); 
+ appointmentRouter.post('/',postAppointment); 
+ appointmentRouter.get('/',getAppointments)
 
 
 module.exports = appointmentRouter;
