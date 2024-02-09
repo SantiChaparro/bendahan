@@ -61,4 +61,27 @@ const getProfessionalById = async (dni) => {
 
 };
 
-module.exports={getAllProfessionals,postNewProfessional,getProfessionalById}
+const updatedProfessional = async (dni,updateData) => {
+
+    const existingProfessional = await Professional.findByPk(dni);
+
+    if(existingProfessional){
+        const updateProfessional = await existingProfessional.update(updateData);
+
+       if(updateData.services && Array.isArray(updateData.services)){
+        const services = await Service.findAll({
+            where:{
+                id: updateData.services
+            }
+        });
+
+        await existingProfessional.setServices(services);
+
+       }
+       const successMessage = `Profesional modificado con éxito`;
+       return { successMessage, updatedProfessional: existingProfessional };
+    }
+
+};
+
+module.exports={getAllProfessionals,postNewProfessional,getProfessionalById,updatedProfessional}
