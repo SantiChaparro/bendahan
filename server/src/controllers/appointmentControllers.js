@@ -38,6 +38,10 @@ const getAllAppointments = async () => {
     const appointments = await Appointment.findAll({
         include:[
             {
+                model: Client,
+                attributes:['name']
+            },
+            {
                 model:Professional,
                 attributes:['name']
             },
@@ -54,5 +58,45 @@ const getAllAppointments = async () => {
 
 };
 
+const getApointmentById = async (id) => {
 
-module.exports={postNewAppointment,getAllAppointments}
+    const appointment = await Appointment.findByPk(id,{
+        include:[
+            {
+                model: Client,
+                attributes:['name']
+            },
+            {
+                model:Professional,
+                attributes:['name']
+            },
+            {
+                model: Service,
+                attributes:['service_name','cost']
+            }
+        ]
+    })
+     
+
+    if(appointment){
+        return appointment;
+    }
+
+};
+
+const updatedAppointment = async (updateData,id) => {
+    const foundAppointment = await Appointment.findByPk(id);
+    console.log(updateData)
+    if(foundAppointment){
+
+         await foundAppointment.update(updateData);
+
+         const successMessage = 'Turno modificado con éxito';
+
+         return {successMessage,foundAppointment}
+
+    }
+};
+
+
+module.exports={postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment}
