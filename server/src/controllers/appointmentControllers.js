@@ -98,5 +98,20 @@ const updatedAppointment = async (updateData,id) => {
     }
 };
 
+const distroyAppointment = async (id) => {
 
-module.exports={postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment}
+    const appointment = await Appointment.findByPk(id);
+
+    if(appointment){
+        const distroyedAppointment = await appointment.destroy()
+
+        if(distroyedAppointment){
+            const successMessage = 'Turno eliminado con éxito'
+
+            return successMessage;
+        }
+    }
+
+};
+
+module.exports={postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment,distroyAppointment}
