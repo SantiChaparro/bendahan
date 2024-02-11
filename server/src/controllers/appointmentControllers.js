@@ -84,6 +84,49 @@ const getApointmentById = async (id) => {
 
 };
 
+const clientAppointments = async (dni) => {
+
+    const client = await Client.findByPk(dni);
+    console.log(client)
+
+        if (client) {
+
+            const appointments = await Appointment.findAll({
+                where: {
+                    ClientDni: dni,
+                    paid: false
+                },
+                include: [{ model: Service }]
+            });
+
+            console.log(appointments)
+
+            if (appointments.length === 0) {
+                const message = 'No hay pagos pendientes';
+                console.log(message); 
+                return message;
+            } else {
+                let totalAmont = 0;
+                const appointmentData =await appointments.map(appointment => {
+                    totalAmont += appointment.Service.cost;
+                    return {
+                        id: appointment.id,
+                        date: appointment.date,
+                        service_name: appointment.Service.service_name,
+                        cost: appointment.Service.cost
+                    };
+
+                });
+
+                console.log(appointmentData);
+                return {appointmentData,totalAmont};
+            }
+
+      
+    }
+
+};
+
 const updatedAppointment = async (updateData,id) => {
     const foundAppointment = await Appointment.findByPk(id);
     console.log(updateData)
@@ -114,4 +157,4 @@ const distroyAppointment = async (id) => {
 
 };
 
-module.exports={postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment,distroyAppointment}
+module.exports={postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment,distroyAppointment,clientAppointments}
