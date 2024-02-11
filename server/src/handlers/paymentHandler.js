@@ -3,11 +3,11 @@ const {postNewPayment} = require('../controllers/paymentControllers');
 const postPayment = async(req,res) => {
 
     
-    const paymentData = req.body;
+    const {payment_day,amount,payment_mode,appointmentsId} = req.body;
 
     try {
 
-        const payment = await postNewPayment(paymentData);
+        const payment = await postNewPayment(payment_day,amount,payment_mode,appointmentsId);
 
         if(payment){
             res.status(200).json(payment);

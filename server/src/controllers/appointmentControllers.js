@@ -110,6 +110,7 @@ const clientAppointments = async (dni) => {
                 const appointmentData =await appointments.map(appointment => {
                     totalAmont += appointment.Service.cost;
                     return {
+                        id: appointment.id,
                         date: appointment.date,
                         service_name: appointment.Service.service_name,
                         cost: appointment.Service.cost
