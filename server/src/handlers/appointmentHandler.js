@@ -1,4 +1,4 @@
-const {postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment,distroyAppointment} = require('../controllers/appointmentControllers');
+const {postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment,distroyAppointment,clientAppointments} = require('../controllers/appointmentControllers');
 
 const postAppointment = async (req,res) => {
 
@@ -24,6 +24,24 @@ const getAppointments = async (req,res) => {
         
         const appointments = await getAllAppointments();
     
+        if(appointments){
+            res.status(200).json(appointments);
+        }
+
+    } catch (error) {
+        res.status(500).send({error:error.message});
+    }
+
+};
+
+const getAppointmentByDni = async (req,res) => {
+
+    const {dni} = req.body;
+
+    try {
+        
+        const appointments = await clientAppointments(dni);
+
         if(appointments){
             res.status(200).json(appointments);
         }
@@ -95,4 +113,4 @@ const deleteAppointment = async (req,res) => {
 
 
 
-module.exports= {postAppointment,getAppointments,getAppointment,updateAppointment,deleteAppointment}
+module.exports= {postAppointment,getAppointments,getAppointment,updateAppointment,deleteAppointment,getAppointmentByDni}

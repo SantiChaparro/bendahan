@@ -1,9 +1,9 @@
 const {Router} = require('express');
-const { } = require('../handlers/paymentHandler'); 
+const {postPayment } = require('../handlers/paymentHandler'); 
 const paymentRouter = Router();
 
 
-// paymentRouter.get('/', handler);
+paymentRouter.post('/',postPayment);
 
 
 
