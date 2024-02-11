@@ -18,6 +18,10 @@ module.exports = (sequelize) => {
         time:{
             type: DataTypes.TIME,
             allowNull: false,
+        },
+        paid:{
+            type:DataTypes.BOOLEAN,
+            defaultValue: false
         }
     })
 };
