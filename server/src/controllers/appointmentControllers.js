@@ -157,4 +157,20 @@ const distroyAppointment = async (id) => {
 
 };
 
-module.exports={postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment,distroyAppointment,clientAppointments}
+const pdAppointment = async (appointmentIds) => {
+
+    const updatedAppointments = await Promise.all(appointmentIds.map(async (appointmentId) => {
+        const appointment = await Appointment.findByPk(appointmentId);
+
+        if (appointment) {
+           
+            await appointment.toggle('paid');
+            return appointment; 
+        }
+    }));
+
+    return updatedAppointments
+};
+
+
+module.exports={postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment,distroyAppointment,clientAppointments,pdAppointment}
