@@ -129,7 +129,7 @@ const clientAppointments = async (dni) => {
 
 const updatedAppointment = async (updateData,id) => {
     const foundAppointment = await Appointment.findByPk(id);
-    console.log(updateData)
+    //console.log(updateData)
     if(foundAppointment){
 
          await foundAppointment.update(updateData);
@@ -159,12 +159,14 @@ const distroyAppointment = async (id) => {
 
 const pdAppointment = async (appointmentIds) => {
 
+    
+
     const updatedAppointments = await Promise.all(appointmentIds.map(async (appointmentId) => {
         const appointment = await Appointment.findByPk(appointmentId);
 
-        if (appointment) {
+        if (appointment && appointment.PaymentId !== null) {
            
-            await appointment.toggle('paid');
+            await appointment.update({paid:true});
             return appointment; 
         }
     }));
