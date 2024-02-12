@@ -25,4 +25,14 @@ const postNewPayment = async (payment_day,amount,payment_mode,appointmentsId) =>
 
 };
 
-module.exports={postNewPayment}
+const getAllPayment = async () => {
+
+    const payments = await Payment.findAll();
+
+    if(payments){
+        return payments;
+    }
+
+};
+
+module.exports={postNewPayment,getAllPayment}
