@@ -1,4 +1,4 @@
-const {postNewPayment} = require('../controllers/paymentControllers');
+const {postNewPayment,getAllPayment} = require('../controllers/paymentControllers');
 
 const postPayment = async(req,res) => {
 
@@ -21,5 +21,23 @@ const postPayment = async(req,res) => {
 
 };
 
+const getPayments = async (req,res) => {
 
-module.exports= {postPayment}
+   try {
+    
+    const payments = await getAllPayment();
+
+    if(payments){
+
+        res.status(200).json(payments);
+
+    }
+
+   } catch (error) {
+    res.status(500).send({error:error.message});
+   }
+
+};
+
+
+module.exports= {postPayment,getPayments}
