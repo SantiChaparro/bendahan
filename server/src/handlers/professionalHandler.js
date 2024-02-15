@@ -19,7 +19,7 @@ const getProfecionals = async (req,res) => {
 const postProfecionals = async (req,res) => {
 
     const {dni,name,phone,mail,services} = req.body;
-    console.log(services)
+    //console.log(services)
 
     try {
         

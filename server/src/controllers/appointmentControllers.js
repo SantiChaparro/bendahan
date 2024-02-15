@@ -43,11 +43,11 @@ const getAllAppointments = async () => {
             },
             {
                 model:Professional,
-                attributes:['name']
+                attributes:['name','dni']
             },
             {
                 model: Service,
-                attributes:['service_name','cost']
+                attributes:['service_name','cost','commission_percentage']
             }
         ]
     });
@@ -64,7 +64,7 @@ const getApointmentById = async (id) => {
         include:[
             {
                 model: Client,
-                attributes:['name']
+                attributes:['name','dni']
             },
             {
                 model:Professional,
@@ -72,7 +72,7 @@ const getApointmentById = async (id) => {
             },
             {
                 model: Service,
-                attributes:['service_name','cost']
+                attributes:['service_name','cost',"commission_percentage"]
             }
         ]
     })
@@ -84,7 +84,9 @@ const getApointmentById = async (id) => {
 
 };
 
-const clientAppointments = async (dni) => {
+const clientAppointments = async (dni,date) => {
+    
+    console.log('fecha y deni desde controler son ...',dni,date)
 
     const client = await Client.findByPk(dni);
     console.log(client)
@@ -94,9 +96,10 @@ const clientAppointments = async (dni) => {
             const appointments = await Appointment.findAll({
                 where: {
                     ClientDni: dni,
-                    paid: false
+                    paid: false,
+                    date: date
                 },
-                include: [{ model: Service }]
+                include: [{ model: Service },{ model: Professional }]
             });
 
             console.log(appointments)
@@ -113,7 +116,9 @@ const clientAppointments = async (dni) => {
                         id: appointment.id,
                         date: appointment.date,
                         service_name: appointment.Service.service_name,
-                        cost: appointment.Service.cost
+                        cost: appointment.Service.cost,
+                        commision_percentage:appointment.Service.commission_percentage,
+                        professional: appointment.Professional.dni
                     };
 
                 });
@@ -126,6 +131,51 @@ const clientAppointments = async (dni) => {
     }
 
 };
+
+const allClientAppointments =  async (dni) => {
+        
+    const client = await Client.findByPk(dni);
+    
+        if (client) {
+
+            const appointments = await Appointment.findAll({
+                where: {
+                    ClientDni: dni,
+                    paid: false,
+                },
+                include: [{ model: Service },{ model: Professional }]
+            });
+
+           // console.log(appointments)
+
+            if (appointments.length === 0) {
+
+                const message = 'No hay pagos pendientes';
+                return message;
+
+            } else {
+               // let totalAmont = 0;
+                const appointmentData =await appointments.map(appointment => {
+                   // totalAmont += appointment.Service.cost;
+                    return {
+                        id: appointment.id,
+                        date: appointment.date,
+                        service_name: appointment.Service.service_name,
+                        cost: appointment.Service.cost,
+                        commision_percentage:appointment.Service.commission_percentage,
+                        professional: appointment.Professional.dni
+                    };
+
+                });
+
+                return appointmentData;
+            }
+
+      
+    }
+
+};
+
 
 const updatedAppointment = async (updateData,id) => {
     const foundAppointment = await Appointment.findByPk(id);
@@ -175,4 +225,13 @@ const pdAppointment = async (appointmentIds) => {
 };
 
 
-module.exports={postNewAppointment,getAllAppointments,getApointmentById,updatedAppointment,distroyAppointment,clientAppointments,pdAppointment}
+module.exports={
+    postNewAppointment,
+    getAllAppointments,
+    getApointmentById,
+    updatedAppointment,
+    distroyAppointment,
+    clientAppointments,
+    pdAppointment,
+    allClientAppointments
+}
