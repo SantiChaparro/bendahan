@@ -3,7 +3,13 @@ const {Service} = require('../db');
 
 const getAllProfessionals = async () => {
 
-    const allProfessionals = await Professional.findAll();
+    const allProfessionals = await Professional.findAll({
+        include:[{
+            model: Service,
+            attributes: ['service_name'],
+            through: { attributes: [] }  
+        }]
+    });
 
     if(allProfessionals){
 
@@ -26,12 +32,19 @@ const postNewProfessional = async (dni,name,phone,mail,services) => {
         console.log(newProfessional)
 
         if(services && services.length > 0){
-            const service = await Service.findAll({
-                where:{
-                    id:services
+
+            const mapedService = services.map(async(item)=>{
+
+                const service = await Service.findByPk(item)
+                
+                if(service){
+                    return service
                 }
             });
-            newProfessional.addService(service);
+
+            const resolvedServices = await Promise.all(mapedService);
+
+            await newProfessional.addService(resolvedServices);
         }
         
         const successMessage = `Profesional creado con éxito`;
