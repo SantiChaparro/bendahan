@@ -1,0 +1,43 @@
+.MuiPickersCalendarHeader-label {
+    font-size: 16px;
+    /* color: red; */
+    
+  }
+  
+  .MuiPickersCalendarHeader-labelContainer {
+    background-color: #2196f3;
+   
+    height: 30px;
+    border-radius: 5px 5px 0 0;
+    padding: 0px 5px;
+  }
+  
+  .MuiPickersCalendarHeader-root {
+    border-bottom: 2px solid #2196f3;
+  }
+  
+  .MuiPickersCalendarHeader-switchViewButton {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .MuiPickersCalendarHeader-switchViewIcon {
+    color: #e0e0e0;
+  }
+
+  .MuiDateCalendar-root {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .MuiDateCalendar-viewTransitionContainer {
+    transition: opacity 0.3s ease-in-out;
+    ;
+  }
+
+  .custom-date-calendar {
+  width: 300px !important; /* Ancho deseado */
+  height: 300px !important; /* Altura deseada */
+  
+}
