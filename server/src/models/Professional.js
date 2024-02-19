@@ -24,6 +24,11 @@ module.exports = (sequelize) => {
             validate:{
                 isEmail: true,
              }
+        },
+        commission_percentage:{
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
+        
     })
 };

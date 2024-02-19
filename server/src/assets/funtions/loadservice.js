@@ -9,8 +9,8 @@ const serviceLoader = async () => {
         return {
 
             service_name: service.service_name,
-            cost: service.cost ,
-            commission_percentage: service.commission_percentage
+            cost: service.cost 
+            
         }
 
     })
