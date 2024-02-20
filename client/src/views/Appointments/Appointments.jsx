@@ -1,37 +1,19 @@
-import * as React from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { useState } from "react";
+import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import moment from "moment";
-import { Box, ThemeProvider, createTheme } from "@mui/system";
-// import CalendarDate from 'react-calendar';
-// import 'react-calendar/dist/Calendar.css';
+import DatePicker from "../../components/calendar/DatePicker";
+import dayjs from "dayjs";
 
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import DateCalendar from "../../components/calendar/DateCalendar";
-
-const theme = createTheme({
-  palette: {
-    background: {
-      paper: "#fff",
-      red: "red",
-    },
-    text: {
-      primary: "#173A5E",
-      secondary: "#46505A",
-    },
-    action: {
-      active: "#001E3C",
-    },
-    success: {
-      dark: "#009688",
-    },
-  },
-});
-
+ 
 const Appointments = () => {
-  const localizer = momentLocalizer(moment);
+  const [date, setDate] = useState(dayjs());
+  console.log("Fecha de en el componente appointment:", date);
+  const localizer = dayjsLocalizer(dayjs);
+
+  const handleChangeDate = (newDate) => {
+    console.log("soy value que vengo desde datepicker:", newDate);
+    setDate(newDate);
+  };
 
   return (
     <div
@@ -45,7 +27,7 @@ const Appointments = () => {
       <div
         style={{
           height: "100%",
-          width: "60%",
+          width: "70%",
           // border: "solid 2px yellow",
           display: "flex",
           flexDirection: "row",
@@ -54,20 +36,42 @@ const Appointments = () => {
         }}>
         <Calendar
           localizer={localizer}
-          style={{ height: "80%", width: "70%", border: "solid 2px orange" }}
+          style={{ height: "90%", width: "100%" }}
+          view="day"
+          date={date.toDate()}
+          startAccessor='start'
+          endAccessor='end'
+          events={[ {
+            title: 'Event 1',
+            start: new Date(),
+            end: new Date(new Date().setHours(new Date().getHours() + 1)),
+          }]}
+          onNavigate={(newDate) => handleChangeDate(dayjs(newDate))}
+          step={30}
+          timeslots={2}
         />
       </div>
       <div
         style={{
           height: "100%",
-          width: "40%",
-          border: "solid 2px green",
+          width: "30%",
+          // border: "solid 2px green",
           display: "flex",
           flexDirection: "row",
           justifyContent: "center", // Centrar horizontalmente
-          alignItems: "center", // Centrar verticalmente
+          alignItems: "start", // Centrar verticalmente
         }}>
-        <DateCalendar />  
+        <div
+          style={{
+            marginTop: "10px",
+            width: "100%",
+            justifyContent: "flex-end",
+            display: "flex",
+            flexDirection: "row",
+            marginRight: "20px",
+          }}>
+          <DatePicker date={date} handleChangeDate={handleChangeDate} />
+        </div>
       </div>
     </div>
   );
