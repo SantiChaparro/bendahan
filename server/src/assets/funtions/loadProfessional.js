@@ -11,7 +11,8 @@ const professionalLoader = async () => {
             dni: professional.dni,
             name: professional.name,
             phone: professional.phone,
-            mail: professional.mail
+            mail: professional.mail,
+            commission_percentage: professional.commission_percentage
         }
 
     })

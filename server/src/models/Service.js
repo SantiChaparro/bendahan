@@ -18,10 +18,6 @@ module.exports = (sequelize) => {
         cost:{
             type: DataTypes.FLOAT,
             allowNull: true,
-        },
-        commission_percentage:{
-            type: DataTypes.INTEGER,
-            allowNull: false
         }
         
     })
