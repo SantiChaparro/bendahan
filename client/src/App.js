@@ -1,9 +1,13 @@
-import './App.css';
+
+import "./App.css";
+import SideBar from "./components/navBar/SideBar";
 
 function App() {
+
+
   return (
-    <div className="App">
-      <h1>BENDAHAN</h1>
+    <div className="App" >
+        <SideBar />
     </div>
   );
 }
