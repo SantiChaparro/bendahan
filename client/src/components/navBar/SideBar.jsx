@@ -15,11 +15,15 @@ import { grey } from "@mui/material/colors";
 
 import HomeIcon from "@mui/icons-material/Home";
 import Appointments from "../../views/Appointments/Appointments";
-import Customers from "../../views/Customers/Customers";
 import Payments from "../../views/Payments/Payments";
 import Team from "../../views/Team/Team";
 import Analitycs from "../../views/Analitycs/Analitycs";
 import Dashboard from "../../views/Dashboard/Dashboard";
+import Customers from "../../views/Customers/Customers";
+import Collapse from "@mui/material/Collapse";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 import { Link, Routes, Route, useLocation } from "react-router-dom";
 
@@ -28,6 +32,26 @@ const appHeight = 40;
 
 export default function SideBar() {
   const { pathname } = useLocation();
+
+  const [open, setOpen] = React.useState(false);
+  const [clientesOpen, setClientesOpen] = React.useState(false);
+  const [serviciosOpen, setServiciosOpen] = React.useState(false);
+  const [profesionalesOpen, setProfesionalesOpen] = React.useState(false);
+
+  
+  const handleOtherItemClick = () => {
+    setOpen(false); 
+    setClientesOpen(false);
+    setServiciosOpen(false);
+    setProfesionalesOpen(false); 
+  };
+
+ 
+
+  const openClientModal = ()=>{
+    setClientesOpen(true)
+}
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <CssBaseline />
@@ -75,7 +99,7 @@ export default function SideBar() {
             disablePadding
             sx={{ bgcolor: pathname === "/" ? "#2196f3" : null }}>
             <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-              <ListItemButton sx={{ padding: "6px 12px" }}>
+              <ListItemButton sx={{ padding: "6px 12px" }} onClick={handleOtherItemClick}>
                 <ListItemIcon sx={{ minWidth: "36px" }}>
                   <HomeIcon
                     color="primary"
@@ -88,31 +112,12 @@ export default function SideBar() {
           </ListItem>
 
           <ListItem
-            key={"Customers"}
-            disablePadding
-            sx={{ bgcolor: pathname === "/Customers" ? "#2196f3" : null }}>
-            <Link
-              to="/Customers"
-              style={{ textDecoration: "none", color: "inherit" }}>
-              <ListItemButton sx={{ padding: "6px 12px" }}>
-                <ListItemIcon sx={{ minWidth: "36px" }}>
-                  <HomeIcon
-                    color="primary"
-                    sx={{ color: pathname === "/Customers" ? grey[300] : null }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={"Customers"} />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-
-          <ListItem
             key={"Payments"}
             disablePadding
             sx={{ bgcolor: pathname === "/Payments" ? "#2196f3" : null }}>
             <Link
               to="/Payments"
-              style={{ textDecoration: "none", color: "inherit" }}>
+              style={{ textDecoration: "none", color: "inherit" }} onClick={handleOtherItemClick}>
               <ListItemButton sx={{ padding: "6px 12px" }}>
                 <ListItemIcon sx={{ minWidth: "36px" }}>
                   <HomeIcon
@@ -132,7 +137,7 @@ export default function SideBar() {
             <Link
               to="/Analitycs"
               style={{ textDecoration: "none", color: "inherit" }}>
-              <ListItemButton sx={{ padding: "6px 12px" }}>
+              <ListItemButton sx={{ padding: "6px 12px" }} onClick={handleOtherItemClick}>
                 <ListItemIcon sx={{ minWidth: "36px" }}>
                   <HomeIcon
                     color="primary"
@@ -147,40 +152,24 @@ export default function SideBar() {
           <ListItem
             key={"Dashboard"}
             disablePadding
-            sx={{ bgcolor: pathname === "/Dashboard" ? "#2196f3" : null }}>
-            <Link
-              to="/Dashboard"
-              style={{ textDecoration: "none", color: "inherit" }}>
-              <ListItemButton sx={{ padding: "6px 12px" }}>
-                <ListItemIcon sx={{ minWidth: "36px" }}>
-                  <HomeIcon
-                    color="primary"
-                    sx={{ color: pathname === "/Dashboard" ? grey[300] : null }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={"Dashboard"} />
-              </ListItemButton>
-            </Link>
+            sx={{ bgcolor: pathname === "/Dashboard" ? "#2196f3" : null }}
+          >
+            <ListItemButton
+              sx={{ padding: "6px 12px", color: "inherit" }}
+              component={Link} to="/Dashboard"
+            >
+              <ListItemIcon sx={{ minWidth: "36px" }}>
+                <DashboardIcon
+                  color="primary"
+                  sx={{
+                    color: pathname === "/Dashboard" ? grey[300] : null
+                  }}
+                />
+              </ListItemIcon>
+              <ListItemText primary={"Dashboard"} />
+            </ListItemButton>
           </ListItem>
-
-          <ListItem
-            key={"Team"}
-            disablePadding
-            sx={{ bgcolor: pathname === "/Team" ? "#2196f3" : null }}>
-            <Link
-              to="/Team"
-              style={{ textDecoration: "none", color: "inherit" }}>
-              <ListItemButton sx={{ padding: "6px 12px" }}>
-                <ListItemIcon sx={{ minWidth: "36px" }}>
-                  <HomeIcon
-                    color="primary"
-                    sx={{ color: pathname === "/Team" ? grey[300] : null }}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={"Team"} />
-              </ListItemButton>
-            </Link>
-          </ListItem>
+          
         </List>
         <Divider />
       </Drawer>
@@ -189,7 +178,7 @@ export default function SideBar() {
         component="main"
         sx={{
           position: "fixed",
-          // border: "solid 2px red",
+          border: "solid 2px red",
           flexGrow: 1,
           display: "flex",
           justifyContent: "center", // Centrar horizontalmente
@@ -206,8 +195,8 @@ export default function SideBar() {
           <Route path="/Customers" element={<Customers />} />
           <Route path="/Payments" element={<Payments />} />
           <Route path="/Analitycs" element={<Analitycs />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/Team" element={<Team />} />
+          <Route path="/Dashboard" element={<Dashboard drawerWidth={drawerWidth} appHeight={appHeight} />} />
+          <Route path="/Dashboard/Clientes" element={<Customers />} />
         </Routes>
       </Box>
     </Box>
