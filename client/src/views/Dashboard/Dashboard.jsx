@@ -22,6 +22,6 @@ const Dashboard = ({ drawerWidth, appHeight }) => {
         <DashboardNavBar />
       </Box>
     );
-  };
+  }; 
 
 export default Dashboard;
