@@ -1,11 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {useDispatch,useSelector } from 'react-redux';
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "../../components/calendar/DatePicker";
 import dayjs from "dayjs";
+import { getAppointments } from "../../redux/slices/appointments/thunks";
 
  
 const Appointments = () => {
+  const dispatch = useDispatch();
+  const {appointments} = useSelector(state => state.appointment)
+  console.log(appointments)
+  useEffect(()=>{
+    dispatch(getAppointments());
+    
+    
+  },[dispatch])
+
+  useEffect(()=>{
+    
+    console.log(appointments)
+    console.log(typeof appointments)
+    
+  },[appointments])
+
   const [date, setDate] = useState(dayjs());
   console.log("Fecha de en el componente appointment:", date);
   const localizer = dayjsLocalizer(dayjs);
@@ -73,7 +91,22 @@ const Appointments = () => {
           <DatePicker date={date} handleChangeDate={handleChangeDate} />
         </div>
       </div>
+       <div>
+       {appointments.length > 0 ? (
+      appointments.map(item => (
+        <div key={item.id}>
+          <p>Cliente: {item.Client.name}</p>
+          <p>DNI: {item.ClientDni}</p>
+          <p>Servicio: {item.Service.service_name}</p>
+          <p>Profesional: {item.Professional.name}</p>
+        </div>
+      ))
+    ) : (
+      <div>No hay citas disponibles</div>
+    )}
+       </div>   
     </div>
+    
   );
 };
 

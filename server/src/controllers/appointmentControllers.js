@@ -47,7 +47,7 @@ const getAllAppointments = async () => {
             },
             {
                 model: Service,
-                attributes:['service_name','cost','commission_percentage']
+                attributes:['service_name','cost']
             }
         ]
     });
