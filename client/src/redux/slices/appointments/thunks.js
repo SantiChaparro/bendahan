@@ -1,5 +1,8 @@
 import { setAppointments } from "./appointmentSlice";
+import { setCustomers } from "../customers/customerSlice";
+import { createNewClient , createNewClientFail , emptyMessages } from "../customers/newClientSlice";
 import axios from 'axios';
+
 
 
 export const getAppointments = () => {
@@ -13,3 +16,63 @@ export const getAppointments = () => {
     };
 
 };
+
+export const getCustomers = () => {
+
+    return async(dispatch,getstate) => {
+
+        const resp = await axios.get('http://localhost:3001/client');
+        //console.log(resp)
+
+        dispatch(setCustomers({customers: resp.data}));
+    }
+
+};
+
+
+export const updateCustomer = (clientData, dni) => {
+    return async (dispatch, getState) => {
+        try {
+            const resp = await axios.patch(`http://localhost:3001/client/${dni}`, clientData);
+            // Despacha una acción para actualizar los clientes en el estado global de Redux
+            dispatch(updateCustomerSuccess(resp.data));
+        } catch (error) {
+            console.error('Error updating customer:', error);
+        }
+    };
+};
+
+// Acción para actualizar los clientes en el estado global de Redux
+export const updateCustomerSuccess = (updatedCustomerData) => ({
+    type: 'customer/updateCustomerSuccess',
+    payload: updatedCustomerData
+});
+
+
+export const postNewClient = (dni,name,DateOfBirth,phone,mail) => {
+   
+    return async (dispatch) => {
+
+        try {
+
+            const resp = await axios.post('http://localhost:3001/client',{dni,name,DateOfBirth,phone,mail});
+            dispatch(createNewClient({newClient: resp.data}));
+            console.log(resp)
+
+        } catch (error) {
+            dispatch(createNewClientFail({errorMessage: error.response.data.error}));
+        }
+        
+        //console.log(resp)
+       
+       
+    }
+};
+
+export const cleanMessages = () => {
+
+    return (dispatch) => {
+        dispatch(emptyMessages({errorMessage: null}))
+    }
+
+}

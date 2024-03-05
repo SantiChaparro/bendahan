@@ -16,7 +16,8 @@ const Appointments = () => {
     
     
   },[dispatch])
-
+// el seguindo useeffect solo es para consologuear por que cuando lo hacia en el primero
+// me daba undefined por la asincronia
   useEffect(()=>{
     
     console.log(appointments)
