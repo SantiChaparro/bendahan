@@ -16,7 +16,7 @@ import { grey } from "@mui/material/colors";
 import HomeIcon from "@mui/icons-material/Home";
 import Appointments from "../../views/Appointments/Appointments";
 import Payments from "../../views/Payments/Payments";
-import Team from "../../views/Team/Team";
+//import Team from "../../views/Team/Team";
 import Analitycs from "../../views/Analitycs/Analitycs";
 import Dashboard from "../../views/Dashboard/Dashboard";
 import Customers from "../../views/Customers/Customers";
