@@ -1,11 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
 import { useEffect , useState } from "react";
 import { useFormik } from 'formik';
 import { FormControl, TextField, Button ,Snackbar} from "@mui/material";
 import styles from './NewCustomerForm.module.css'
 import { Container } from "@mui/system";
-import { useDispatch } from "react-redux";
 import { postNewClient ,  cleanMessages} from "../../redux/slices/appointments/thunks";
 
 
@@ -58,14 +57,11 @@ const NewCustomerForm = () => {
 
     const newClient = useSelector((state)=>state.newClient);
     const errorMessage = useSelector((state)=>state.newClient.errorMessage);
-    console.log(errorMessage)
     const dispatch = useDispatch();
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarType, setSnackbarType] = useState('success'); 
-    console.log(newClient)
-   
-    console.log(openSnackbar)
+    
 
     useEffect(() => {
         if ((newClient && newClient.newClient.successMessage) || errorMessage) {
@@ -88,7 +84,7 @@ const NewCustomerForm = () => {
         setSnackbarMessage('');
         setSnackbarType('success');
         dispatch(cleanMessages())
-        console.log(openSnackbar)
+        
     }
     
     const handleSubmit = (values, {resetForm}) => {
