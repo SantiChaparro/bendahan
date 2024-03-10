@@ -8,7 +8,8 @@ const getAllProfessionals = async () => {
             model: Service,
             attributes: ['service_name'],
             through: { attributes: [] }  
-        }]
+        }],
+        order: [['name', 'ASC']]
     });
 
     if(allProfessionals){

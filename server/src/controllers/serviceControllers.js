@@ -3,7 +3,11 @@ const {Service} = require('../db');
 
 const getAllServices = async () => {
 
-    const services = await Service.findAll();
+    const services = await Service.findAll(
+        {
+            order: [['service_name', 'ASC']] 
+        }
+    );
 
     if(services){
         return services;

@@ -40,6 +40,7 @@ export const updateCustomer = (clientData, dni) => {
             const resp = await axios.patch(`http://localhost:3001/client/${dni}`, clientData);
             // Despacha una acción para actualizar los clientes en el estado global de Redux
             dispatch(updateCustomerSuccess(resp.data));
+            return resp
         } catch (error) {
             console.error('Error updating customer:', error);
         }
@@ -98,10 +99,18 @@ export const updateService = (serviceData,id) => {
 
     return async(dispatch) => {
 
-        const resp = await axios.patch(`http://localhost:3001/service/${id}`,serviceData);
-        console.log((resp.data));
+        try {
+            
+            const resp = await axios.patch(`http://localhost:3001/service/${id}`,serviceData);
+        console.log((resp));
         dispatch(updatedService({updatedService: resp.data}))
-        return resp.data
+        return resp
+
+        } catch (error) {
+            console.log(error.message)
+        }
+
+        
     }
 };
 
@@ -113,7 +122,7 @@ export const postNewService = (service_name,cost) => {
 
             const resp = await axios.post('http://localhost:3001/service',{service_name,cost});
             dispatch(createNewService({NewService: resp.data}))
-            console.log(resp);
+            console.log(resp.data);
             
        } catch (error) {
             dispatch(createNewServiceFail({errorMessage: error.response.data.error}))
