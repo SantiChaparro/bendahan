@@ -3,12 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { getServices, updateService } from "../../redux/slices/appointments/thunks";
 import { Box, Container, Card, Grid, CardContent, Typography, Button, TextField,Snackbar,Alert } from "@mui/material";
 
+
+
 const Services = () => {
     const  services  = useSelector((state) => state.services.services);
     const dispatch = useDispatch();
+
     const [openSnackBar , setOpenSanckBar] = useState(false);
     const [alertMessage , setAlertMessage] = useState('');
     const [severity , setSeverity] = useState('success');
+
 
     useEffect(() => {
         dispatch(getServices());
@@ -20,7 +24,7 @@ const Services = () => {
         service_name: "",
         cost: ""
     });
- 
+
 
     useEffect(()=>{
 
@@ -58,6 +62,7 @@ const Services = () => {
         if (Object.keys(serviceData).length > 0) {
             console.log(serviceData)
 
+
             const resp = await dispatch(updateService(serviceData,id));
             console.log(resp.data)
             
@@ -72,6 +77,9 @@ const Services = () => {
                 setSeverity('error');
 
             }
+
+            await dispatch(updateService(serviceData,id));
+
            
         }
         await dispatch(getServices())
@@ -83,6 +91,7 @@ const Services = () => {
         setEditingService(null);
     };
 
+
     const handleCloseSnackBar = () => {
 
         setOpenSanckBar(false);
@@ -90,6 +99,7 @@ const Services = () => {
         //setSeverity('success')
 
     }
+
 
     return (
         <Container maxWidth="xl" style={{ height: '100vh', overflow: 'hidden', marginTop: '200px' }}>
@@ -151,6 +161,7 @@ const Services = () => {
                     <p>El array está vacío</p>
                 )}
             </Box>
+
             <Snackbar 
                 open={openSnackBar} 
                 autoHideDuration={2000} 
@@ -159,6 +170,7 @@ const Services = () => {
                     {alertMessage}
                 </Alert>
             </Snackbar>
+
         </Container>
     );
 };

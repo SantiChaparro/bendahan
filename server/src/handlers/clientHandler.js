@@ -20,7 +20,7 @@ const getClients =async (req,res) => {
 };
 
 const postClient = async (req,res) => {
-    console.log(req.body)
+
     const {dni,name,DateOfBirth,phone,mail} = req.body;
 
     try {

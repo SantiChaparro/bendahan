@@ -59,6 +59,4 @@ export default Dashboard;
 //<NewCustomerForm/>
 //<NewServiceForm/>
 //<Services/>
-//<Professionals/>
-//
-//<NewProfessionalForm/>
+

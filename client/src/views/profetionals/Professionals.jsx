@@ -17,8 +17,13 @@ const Professionals = () => {
         phone: "",
         mail: ""
     });
+<<<<<<< HEAD
     // console.log(professionalData)
     // console.log(successMessage);
+=======
+    console.log(professionalData)
+    console.log(successMessage);
+>>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
     useEffect(() => {
         dispatch(getProfessionals());
     }, [dispatch]);
