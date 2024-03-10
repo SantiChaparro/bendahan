@@ -3,7 +3,8 @@
 # dependencies
 /node_modules/.cache/
 /node_modules
-/client/node_modules
+client/node_modules/.cache/default-development/5.pack
+
 /.pnp
 .pnp.js
 
