@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCustomers } from "../../redux/slices/appointments/thunks";
-<<<<<<< HEAD
 import { Box, Container, Card, Grid, CardContent, Typography, Button, TextField,Snackbar, SnackbarContent, Alert } from "@mui/material";
 import { updateCustomer } from "../../redux/slices/appointments/thunks";
 
 
-=======
-import { Box, Container, Card, Grid, CardContent, Typography, Button, TextField } from "@mui/material";
-import { updateCustomer } from "../../redux/slices/appointments/thunks";
-
->>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
 const Customers = () => {
   const { customers } = useSelector((state) => state.customer);
   const dispatch = useDispatch();
@@ -25,7 +19,6 @@ const Customers = () => {
       mail: ""
 
     });
-<<<<<<< HEAD
     const [alertMessage , setAlertMessage] = useState('');
     const [severity, setSeverity] = useState('success');
     const [openSnackBar , setOpenSnackBar] = useState(false);
@@ -55,17 +48,6 @@ const Customers = () => {
     
 
     console.log(customers) 
-=======
-    
-
-    useEffect(() => {
-      dispatch(getCustomers());
-    }, [dispatch]);
-
-    console.log(customers) //en este log no muestra actualizado al estado pero en redux dev tools veo que si esta actualizado
-
-    
->>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
   const handleEdit = (customer) => {
     setEditingCustomer(customer);
    
@@ -84,11 +66,7 @@ const Customers = () => {
   };
 
   
-<<<<<<< HEAD
   const handleSave = async(clientDataToUpdate,dni) => {
-=======
-  const handleSave = (clientDataToUpdate,dni) => {
->>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
       
     const clientData = Object.keys(clientDataToUpdate).reduce((acc, key) => {
       if (clientDataToUpdate[key] !== "") {
@@ -99,7 +77,6 @@ const Customers = () => {
 
   
       if (Object.keys(clientData).length > 0) {
-<<<<<<< HEAD
        const resp = await dispatch(updateCustomer(clientData, dni));
        if(resp.data.successMessage){
         setAlertMessage(resp.data.successMessage);
@@ -122,15 +99,6 @@ const Customers = () => {
     setErrorMessage('');
     setOpenSnackBar(false)
   }
-=======
-        dispatch(updateCustomer(clientData, dni));
-      }
-
-    
-    setEditingCustomer(null);
-     
-  };
->>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
 
 
   const handleCancel = () => {
@@ -247,7 +215,6 @@ const Customers = () => {
           <p>El array está vacío</p>
         )}
       </Box>
-<<<<<<< HEAD
       <Snackbar
        open={openSnackBar} 
        autoHideDuration={2000} 
@@ -256,8 +223,6 @@ const Customers = () => {
               {alertMessage}
           </Alert>
       </Snackbar>
-=======
->>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
     </Container>
   );
 };
