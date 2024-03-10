@@ -1,40 +1,28 @@
 {
     "services": [
         {
-            
             "service_name": "Peluqueria",
-            "cost": 5000,
-            "commission_percentage": 10
+            "cost": 5000
         },
         {
-            "id": 2,
             "service_name": "Maquillaje",
-            "cost": 4000,
-            "commission_percentage": 10
+            "cost": 4000
         },
         {
-            
             "service_name": "Uñas",
-            "cost": 3500,
-            "commission_percentage": 10
+            "cost": 3500
         },
         {
-            
             "service_name": "Podologia",
-            "cost": 3000,
-            "commission_percentage": 5
+            "cost": 3000
         },
         {
-            
             "service_name": "Broceado",
-            "cost": 6000,
-            "commission_percentage": 5
+            "cost": 6000
         },
         {
-           
             "service_name": "Peinado",
-            "cost": 4000,
-            "commission_percentage": 5
+            "cost": 4000
         }
     ]
 }
