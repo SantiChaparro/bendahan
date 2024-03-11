@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import {useDispatch,useSelector } from 'react-redux';
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
+import DetailAppointment from "../../components/detail/DetailAppointment";
+import { getAppointments } from "../../redux/slices/appointments/thunks";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "../../components/calendar/DatePicker";
 import dayjs from "dayjs";
 
 import "dayjs/locale/es";
 import "./Appointments.css";
-import DetailAppointment from "../../components/detail/DetailAppointment";
 
 dayjs.locale("es");
 
-import { getAppointments } from "../../redux/slices/appointments/thunks";
 
 
 const Appointments = () => {
