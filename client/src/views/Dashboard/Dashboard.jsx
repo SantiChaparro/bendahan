@@ -1,9 +1,23 @@
-const Dashboard = ()=>{
+import React from 'react';
+import Box from '@mui/material/Box';
+import DashboardNavBar from '../../components/dashboardNavBar/dashboardNavBar';
+import Customers from '../Customers/Customers';
+import NewCustomerForm from '../NewCustomerForm/NewCustomerForm';
+
+const Dashboard = ({ drawerWidth, appHeight }) => {
+
+    
     return (
-    <>
-        <h1>Estas en Dashboard</h1>
-    </>
-    )
-}
+      <>
+        <DashboardNavBar />
+        
+        <NewCustomerForm/>
+      </>
+      
+      
+    );
+  }; 
 
 export default Dashboard;
+
+//<Customers/>
