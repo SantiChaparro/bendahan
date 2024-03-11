@@ -2,7 +2,11 @@ const {Client}= require ('../db')
 
 const getAllClients = async () => {
 
-    const clients = await Client.findAll();
+    const clients = await Client.findAll(
+        {
+            order: [['name', 'ASC']] 
+        }
+    );
 
     if(clients){
         console.log(clients);

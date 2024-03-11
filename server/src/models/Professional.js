@@ -25,10 +25,7 @@ module.exports = (sequelize) => {
                 isEmail: true,
              }
         },
-        commission_percentage:{
-            type: DataTypes.INTEGER,
-            allowNull: false
-        }
+       
         
     })
 };

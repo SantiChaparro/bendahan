@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCustomers } from "../../redux/slices/appointments/thunks";
+<<<<<<< HEAD
+import { Box, Container, Card, Grid, CardContent, Typography, Button, TextField,Snackbar, SnackbarContent, Alert } from "@mui/material";
+import { updateCustomer } from "../../redux/slices/appointments/thunks";
+
+
+=======
 import { Box, Container, Card, Grid, CardContent, Typography, Button, TextField } from "@mui/material";
 import { updateCustomer } from "../../redux/slices/appointments/thunks";
 
+>>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
 const Customers = () => {
   const { customers } = useSelector((state) => state.customer);
   const dispatch = useDispatch();
@@ -18,6 +25,37 @@ const Customers = () => {
       mail: ""
 
     });
+<<<<<<< HEAD
+    const [alertMessage , setAlertMessage] = useState('');
+    const [severity, setSeverity] = useState('success');
+    const [openSnackBar , setOpenSnackBar] = useState(false);
+    const [errorMessage , setErrorMessage] = useState('');
+    
+
+    
+    
+    useEffect(() => {
+      dispatch(getCustomers());
+
+    }, [dispatch]);
+
+    useEffect(() => {
+    
+      if (editingCustomer === null) {
+        
+        setClientDataToUpdate({
+          name: "",
+          DateOfBirth: "",
+          phone: "",
+          mail: ""
+        });
+      }
+    }, [editingCustomer]); 
+
+    
+
+    console.log(customers) 
+=======
     
 
     useEffect(() => {
@@ -27,6 +65,7 @@ const Customers = () => {
     console.log(customers) //en este log no muestra actualizado al estado pero en redux dev tools veo que si esta actualizado
 
     
+>>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
   const handleEdit = (customer) => {
     setEditingCustomer(customer);
    
@@ -45,7 +84,11 @@ const Customers = () => {
   };
 
   
+<<<<<<< HEAD
+  const handleSave = async(clientDataToUpdate,dni) => {
+=======
   const handleSave = (clientDataToUpdate,dni) => {
+>>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
       
     const clientData = Object.keys(clientDataToUpdate).reduce((acc, key) => {
       if (clientDataToUpdate[key] !== "") {
@@ -56,6 +99,30 @@ const Customers = () => {
 
   
       if (Object.keys(clientData).length > 0) {
+<<<<<<< HEAD
+       const resp = await dispatch(updateCustomer(clientData, dni));
+       if(resp.data.successMessage){
+        setAlertMessage(resp.data.successMessage);
+        setSeverity('success');
+        setOpenSnackBar(true);
+       }else{
+        setAlertMessage('Error al modificar el cliente');
+        setSeverity('error')
+        setOpenSnackBar(true);
+       }
+       
+      }
+
+    await dispatch(getCustomers())
+    setEditingCustomer(null);
+     
+  };
+  
+  const handleCloseSnackBar = () => {
+    setErrorMessage('');
+    setOpenSnackBar(false)
+  }
+=======
         dispatch(updateCustomer(clientData, dni));
       }
 
@@ -63,6 +130,7 @@ const Customers = () => {
     setEditingCustomer(null);
      
   };
+>>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
 
 
   const handleCancel = () => {
@@ -179,6 +247,17 @@ const Customers = () => {
           <p>El array está vacío</p>
         )}
       </Box>
+<<<<<<< HEAD
+      <Snackbar
+       open={openSnackBar} 
+       autoHideDuration={2000} 
+       onClose={handleCloseSnackBar}>
+          <Alert variant="filled" severity={severity}>
+              {alertMessage}
+          </Alert>
+      </Snackbar>
+=======
+>>>>>>> 6f5f2b1c176f01715817ac9f0e53e27856384239
     </Container>
   );
 };

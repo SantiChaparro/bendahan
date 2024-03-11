@@ -17,11 +17,11 @@ const getServices = async (req,res) => {
 
 const postService = async (req,res) => {
 
-    const {service_name,cost,commission_percentage} = req.body;
+    const {service_name,cost} = req.body;
     console.log(req.body)
    
     try {
-        const service = await postNewService(service_name,cost,commission_percentage);
+        const service = await postNewService(service_name,cost);
         console.log(service)
         if(service){
             res.status(200).json(service);
@@ -55,6 +55,8 @@ const updateService = async (req,res) => {
 
     const serviceData = req.body;
     const {id} = req.params;
+    console.log(serviceData)
+    console.log(id);
 
     try {
         

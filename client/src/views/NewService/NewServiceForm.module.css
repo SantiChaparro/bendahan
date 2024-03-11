@@ -1,0 +1,17 @@
+.formContainer {
+    width: 300px;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)
+    
+  }
+
+  .error {
+    color: red;
+  }
