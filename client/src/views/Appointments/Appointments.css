@@ -1,19 +1,18 @@
-/* .rbc-event{
-    /* width: 100% !important;
+ .rbc-event{
+     width: 100% !important;
     display: flex;
-    flex-direction: column; */
-    /* padding: 2px; */
-    /* margin-left: 5px;
+    flex-direction: column; 
+    padding: 2px; 
+    margin-left: 5px;
     justify-content: center;
-    align-items: center; */
-/* } */ 
+    align-items: center; 
+ } 
 
-/* .rbc-event-label{
+.rbc-event-label{
     display: none;
-} */
+}
+
 /* 
-
-
 .rbc-event-content{
     display: flex;
     align-items: center;
@@ -26,10 +25,10 @@
     display:flex;
     flex-direction: column;
     height: fit-content ;
-}
+} */
 
 
- */
+ 
 
 /* 
 .rbc-time-content{

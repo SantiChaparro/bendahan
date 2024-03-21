@@ -42,9 +42,9 @@ const foundClient = async (dni) => {
 
     const client = await Client.findByPk(dni);
 
-    if(client){
+    // if(client){
         return client;
-    }
+    // }
 
 };
 
