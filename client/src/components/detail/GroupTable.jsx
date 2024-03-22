@@ -1,4 +1,4 @@
-import * as React from "react";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,57 +9,78 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import dayjs from "dayjs";
+import axios from "axios";
+import { useDispatch,useSelector } from "react-redux";
+import { getAppointments } from "../../redux/slices/appointments/thunks";
 
+const GroupTable = ({ event, setEventSelected }) => {
+  const { services } = useSelector((state) => state.services);
+  const {professionals}=useSelector(state=>state.professionals);
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+  console.log(services, professionals);
+  const dispatch = useDispatch();
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+  const deleteAppointment = async (idAppointment) => {
+    const response = await axios.delete(
+      `http://localhost:3001/appointment/${idAppointment}`
+    );
+    const result = response.data;
+    console.log("Response del servidor: ", result);
+    dispatch(getAppointments());
+    const updateEvent = event.filter(
+      (app) => app.idAppointment !== idAppointment
+    );
+    setEventSelected(updateEvent);
+  };
 
-const deleteAppointment = () => {
-  console.log("Voy a borrar un turno");
-};
+  const editAppointment = (serviceName) => {
+    console.log("Voy a editar un turno con el servicio: ", serviceName);
 
-const editAppointment = () => {
-  console.log("Voy a editar un turno");
-};
+    const proffesionalsByServices= professionals.filter((prof)=>{
+      return prof.Services.some((service)=> service.service_name===serviceName)
+    })
+console.log(proffesionalsByServices);
+    return proffesionalsByServices
 
-export default function GroupTable({event}) {
+  };
+
   console.log(event);
-  const app= event
+  const app = event;
   return (
     <TableContainer sx={{ maxHeight: 440 }}>
       <Table stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
             <TableCell>Servicio</TableCell>
+            <TableCell align="right">Id Appointment</TableCell>
             <TableCell align="right">Inicio</TableCell>
             <TableCell align="right">Fin</TableCell>
             <TableCell align="right">Profesional</TableCell>
+            <TableCell align="right">Costo</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{ overflow: "hidden" }}>
           {app.map((app) => (
-            <TableRow key={app.id}>
+            <TableRow key={app.idAppointment}>
               <TableCell component="th" scope="row">
-                {app.title}
+                {app.serviceName}
               </TableCell>
-              <TableCell align="right">{ (dayjs(app.start)).format('HH:mm')}</TableCell>
-              <TableCell align="right">{(dayjs(app.end)).format('HH:mm')}</TableCell>
-              <TableCell align="right">{app.resource}</TableCell>
+              <TableCell align="right">{app.idAppointment}</TableCell>
               <TableCell align="right">
-                <IconButton onClick={editAppointment}>
+                {dayjs(app.start).format("HH:mm")}
+              </TableCell>
+              <TableCell align="right">
+                {dayjs(app.end).format("HH:mm")}
+              </TableCell>
+              <TableCell align="right">{app.nameProfessional}</TableCell>
+              <TableCell align="right">${app.cost}</TableCell>
+              <TableCell align="right">
+                <IconButton onClick={() => editAppointment(app.serviceName)}>
                   <EditIcon />
                 </IconButton>
-                <IconButton onClick={deleteAppointment}>
+                <IconButton
+                  onClick={() => deleteAppointment(app.idAppointment)}>
                   <DeleteIcon />
                 </IconButton>
               </TableCell>
@@ -69,4 +90,6 @@ export default function GroupTable({event}) {
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default GroupTable;

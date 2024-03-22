@@ -49,6 +49,8 @@ const getClientById = async (req,res) => {
 
         if(client){
             res.status(200).json(client);
+        }else{
+            res.status(200).json()
         }
 
     } catch (error) {
